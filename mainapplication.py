@@ -1,5 +1,5 @@
 from documents.directorycorpus import DirectoryCorpus
-from indexing import Index, DiskIndexWriter
+from indexing import Index, DiskIndexWriter, DiskPositionalIndex
 from queries import SpecialQuery, BooleanQueryParser, TokenController
 from text import (BasicTokenProcessor, StemmingTokenProcessor, TokenProcessor,
     NoTokenProcessor, BackStemTokenProcessor, TokenStream, EnglishTokenStream)
@@ -84,23 +84,25 @@ def milestone1():
             
 
 def milestone2():
-    tokenizer : TokenProcessor = None
-    print("Select Token Processor to use: \n 1) None \n 2) Basic \n 3) Stemming \n 4) Other Stemming\n")
-    while(True):
-        selection = input("Enter selection number: ")
-        if selection == "1":
-            tokenizer = NoTokenProcessor()
-        elif selection == "2":
-            tokenizer = BasicTokenProcessor()
-        elif selection == "3":
-            tokenizer = StemmingTokenProcessor()
-        elif selection == "4":
-            tokenizer = BackStemTokenProcessor()
-        else:
-            print("No such option exists\n")
-            continue
-        TokenController(tokenizer)
-        break
+    tokenizer = StemmingTokenProcessor()
+    TokenController(tokenizer)
+    # tokenizer : TokenProcessor = None
+    # print("Select Token Processor to use: \n 1) None \n 2) Basic \n 3) Stemming \n 4) Other Stemming\n")
+    # while(True):
+    #     selection = input("Enter selection number: ")
+    #     if selection == "1":
+    #         tokenizer = NoTokenProcessor()
+    #     elif selection == "2":
+    #         tokenizer = BasicTokenProcessor()
+    #     elif selection == "3":
+    #         tokenizer = StemmingTokenProcessor()
+    #     elif selection == "4":
+    #         tokenizer = BackStemTokenProcessor()
+    #     else:
+    #         print("No such option exists\n")
+    #         continue
+    #     TokenController(tokenizer)
+    #     break
 
     corpus_path = input("\nEnter path of corpus directory: ")
     disk_path = input("\nEnter path of directory to save on disk to: ")
@@ -113,6 +115,14 @@ def milestone2():
     # /Users/ashleyjones/Documents/CSULB/2022Fall/CECS429/search_engine
 
     DiskIndexWriter.write_index(index, disk_path)
+
+    index = DiskPositionalIndex(disk_path)
+    vocab = index.vocabulary()
+    postings = index.get_postings('hello')
+    
+
+    print('bloop')
+
             
 if __name__ == "__main__":
     milestone2()

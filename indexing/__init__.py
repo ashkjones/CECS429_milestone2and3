@@ -4,3 +4,4 @@ from indexing.termdocumentindex import TermDocumentIndex
 from indexing.invertedindex import InvertedIndex
 from indexing.positionalinvertedindex import PosInvertedIndex
 from indexing.diskindexwriter import DiskIndexWriter
+from indexing.diskpositionalindex import DiskPositionalIndex

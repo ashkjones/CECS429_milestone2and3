@@ -21,11 +21,11 @@ class DiskIndexWriter:
       connection = sqlite3.connect(db_path)
       cursor = connection.cursor()
       print("Connected to Database")
-      cursor.execute("DROP TABLE IF EXISTS TERM_POSITIONS")
+      cursor.execute("DROP TABLE IF EXISTS term_positions")
 
-      table = """ CREATE TABLE TERM_POSITIONS (
-               TERM VARCHAR(255) NOT NULL,
-               POSITION INT NOT NULL
+      table = """ CREATE TABLE term_positions (
+               term VARCHAR(255) NOT NULL,
+               position INT NOT NULL
                ); """
 
       cursor.execute(table)
@@ -33,7 +33,7 @@ class DiskIndexWriter:
 
          # Let's record the term byte position to the database
          byte_pos = file.tell()
-         cursor.execute(f"""INSERT into TERM_POSITIONS ('TERM', 'POSITION')
+         cursor.execute(f"""INSERT into term_positions('term', 'position')
                               VALUES
                               ('{term}', {byte_pos})""")
 
@@ -65,7 +65,7 @@ class DiskIndexWriter:
 
       pos_gap = 0
 
-      for i in range(1, tf):
+      for i in range(0, tf):
          file.write(struct.pack('>i', positions[i] - pos_gap))
          pos_gap = positions[i]
 
