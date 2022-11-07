@@ -1,5 +1,5 @@
 from documents.directorycorpus import DirectoryCorpus
-from indexing.index import Index
+from indexing import Index, DiskIndexWriter
 from queries import SpecialQuery, BooleanQueryParser, TokenController
 from text import (BasicTokenProcessor, StemmingTokenProcessor, TokenProcessor,
     NoTokenProcessor, BackStemTokenProcessor, TokenStream, EnglishTokenStream)
@@ -26,8 +26,12 @@ def execute_special(command : list[str], d : DirectoryCorpus, index : Index):
     return d, index
 
 
-"""runs all the stuff"""
-if __name__ == "__main__":
+
+# create the positional inverted index in memory
+
+
+"""runs milestone1 stuff"""
+def milestone1():
     # User can change token process at runtime only at beginning
     tokenizer : TokenProcessor = None
     print("Select Token Processor to use: \n 1) None \n 2) Basic \n 3) Stemming \n 4) Other Stemming\n")
@@ -79,4 +83,37 @@ if __name__ == "__main__":
                     break
             
 
+def milestone2():
+    tokenizer : TokenProcessor = None
+    print("Select Token Processor to use: \n 1) None \n 2) Basic \n 3) Stemming \n 4) Other Stemming\n")
+    while(True):
+        selection = input("Enter selection number: ")
+        if selection == "1":
+            tokenizer = NoTokenProcessor()
+        elif selection == "2":
+            tokenizer = BasicTokenProcessor()
+        elif selection == "3":
+            tokenizer = StemmingTokenProcessor()
+        elif selection == "4":
+            tokenizer = BackStemTokenProcessor()
+        else:
+            print("No such option exists\n")
+            continue
+        TokenController(tokenizer)
+        break
+
+    corpus_path = input("\nEnter path of corpus directory: ")
+    disk_path = input("\nEnter path of directory to save on disk to: ")
+    # easy copy and paste
+    # /Users/ashleyjones/Documents/CSULB/2022Fall/CECS429/SearchFoundations_Python/MobyDick10Chapters
+    # /Users/ashleyjones/Documents/CSULB/2022Fall/CECS429/SearchFoundations_Python/all-nps-sites-extracted
+
+    d, index = SpecialQuery.new_index(corpus_path)
+
+    # /Users/ashleyjones/Documents/CSULB/2022Fall/CECS429/search_engine
+
+    DiskIndexWriter.write_index(index, disk_path)
             
+if __name__ == "__main__":
+    milestone2()
+
