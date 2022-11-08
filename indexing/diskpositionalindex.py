@@ -51,6 +51,7 @@ class DiskPositionalIndex(Index):
         doc_gap = 0
         for i in range(df):
             doc_id = struct.unpack('=i', self.__postings.read(4))[0] + doc_gap
+            w_dt = struct.unpack('=d', self.__postings.read(8))[0]
             tf = struct.unpack('=i', self.__postings.read(4))[0]
             p_td = [0]*tf # save space for the positions
             p_gap = 0
@@ -82,6 +83,7 @@ class DiskPositionalIndex(Index):
         doc_gap = 0
         for i in range(df):
             doc_id = struct.unpack('=i', self.__postings.read(4))[0] + doc_gap
+            w_dt = struct.unpack('=d', self.__postings.read(8))[0]
             tf = struct.unpack('=i', self.__postings.read(4))[0]
 
             # we will just read bytes to progress the pointer
@@ -91,14 +93,11 @@ class DiskPositionalIndex(Index):
             # we will be using the special TermFrePosting object
             # to make the work ahead easier. Inherits from Posting so
             # older code will still work
-            postings.append(TermFreqPosting(doc_id, tf))
+            postings.append(TermFreqPosting(doc_id, tf, w_dt))
+            doc_gap = doc_id
 
         return postings
 
-    def get_weight(self, docID : int) -> int:
-        offset = docID * 8
-        self.__weights.seek(offset)
-        return struct.unpack("=d", self.__weights.read(8))[0]
 
     def vocabulary(self) -> list[str]:
         """A (sorted) list of all terms in the index vocabulary."""

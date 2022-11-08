@@ -8,7 +8,7 @@ class NotQuery(QueryComponent):
         self.component = component
 
     def get_postings(self, index : Index) -> list[Posting]:
-        return self.component.get_np_postings(index)
+        return self.component.get_postings(index)
 
     def __str__(self):
         return " - ".join(map(str, self.components))

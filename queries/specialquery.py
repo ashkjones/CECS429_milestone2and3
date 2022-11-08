@@ -1,6 +1,7 @@
 from pathlib import Path
 from documents import DocumentCorpus, DirectoryCorpus
 from indexing import Index, PosInvertedIndex
+from indexing.diskindexwriter import DiskIndexWriter
 from text import TokenProcessor, EnglishTokenStream, TokenStream
 from time import time
 from text.notokenprocessor import NoTokenProcessor
@@ -30,7 +31,7 @@ class SpecialQuery:
 
     '''Indexes a new corpus at a given path'''
     @staticmethod
-    def new_index(directory : str) -> tuple[DirectoryCorpus, Index]:
+    def new_index(directory : str):
         corpus_path = Path(directory)
         start = time()
         d = DirectoryCorpus.load_text_directory(corpus_path)
@@ -40,7 +41,11 @@ class SpecialQuery:
         
         index = SpecialQuery._index_corpus(d)
         print(f"\nIndexing Complete. Time elapsed: {time()-start:.2f}s")
-        return d, index
+        print(f"Writing index to disk...", end=' ')
+        DiskIndexWriter.write_index(index, corpus_path)
+        print(f"Finished writing index to disk")
+        
+
 
     @staticmethod
     def _index_corpus(corpus : DocumentCorpus) -> Index:  
