@@ -3,8 +3,7 @@ from typing import Iterable
 from documents.directorycorpus import DirectoryCorpus
 from indexing import Index, DiskIndexWriter, DiskPositionalIndex, Posting
 from queries import SpecialQuery, BooleanQueryParser, TokenController, RankedQueryParser
-from text import (BasicTokenProcessor, StemmingTokenProcessor, TokenProcessor,
-    NoTokenProcessor, BackStemTokenProcessor, TokenStream, EnglishTokenStream)
+from text import (StemmingTokenProcessor, TokenProcessor, TokenStream, EnglishTokenStream)
 
 """This program builds an index over the .txt and .json files in a provided
     directory. The program also executes user provides queries."""
@@ -73,7 +72,7 @@ def ranked_retrieval(d : DirectoryCorpus, index : Index):
             top_docs = parser.parse_query(query, index)
             for i in range(len(top_docs)):
                 doc = top_docs[i]
-                print(f"{i+1}. ID {doc[1]} | Title \"{d.get_document(doc[0]).title}\" | File: {d.get_document(doc[0]).name} | Score: {doc[1]:.4f}")
+                print(f"{i+1}. ID {doc[0]} | Title \"{d.get_document(doc[0]).title}\" | File: {d.get_document(doc[0]).name} | Score: {doc[1]:.4f}")
             view_doc(top_docs, d)
 
 
