@@ -1,0 +1,6 @@
+.DS_Store
+*.pyc
+.json
+all-nps-sites-extracted/
+bloop/
+somefiles/
