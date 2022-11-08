@@ -45,6 +45,7 @@ class DiskIndexWriter():
 
          # Let's record the term byte position to the database
          byte_pos = post_file.tell()
+         
          cursor.execute(f"""INSERT into term_positions('term', 'position')
                               VALUES
                               ('{term}', {byte_pos})""")

@@ -1,6 +1,5 @@
 from .tokenprocessor import TokenProcessor
 import re
-import nltk
 from nltk.stem.snowball import SnowballStemmer
 
 class StemmingTokenProcessor(TokenProcessor):
@@ -8,11 +7,14 @@ class StemmingTokenProcessor(TokenProcessor):
     at the beginning and end of a token, converting it to all lowercase, removing hyphens, breaking at
     hyphens and stemming it using Porter2."""
     # _whitespace_re = re.compile(r"^\W+|\W+$") 
-    _quote_re = re.compile(r"[\"\']")
+
+    # all the quotes go away. I hate special chars
+    _quote_re = re.compile(r"[\u0027\u0022\u2018\u2019\u0060\u00B4\u201B\u201C\u201D]+")
+
+    
     # Snowball is the better porter2 package that doesn't give different values for "the"
     # and break my code
     _stemmer = SnowballStemmer(language='english')
-
     
     def process_token(self, token : str) -> list[str]:
         if len(token) < 0:

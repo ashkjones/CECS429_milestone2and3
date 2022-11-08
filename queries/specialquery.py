@@ -36,6 +36,8 @@ class SpecialQuery:
         start = time()
         d = DirectoryCorpus.load_text_directory(corpus_path)
         # Build the index over this directory.
+        # 10629
+        # 36527 -> 15664
         print(f'Found {len(d)} Documents.')
         print(" Indexing...")
         
