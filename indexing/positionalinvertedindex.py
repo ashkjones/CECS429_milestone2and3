@@ -4,6 +4,7 @@ from pydoc import doc
 from typing import Iterable
 from .postings import Posting
 from .index import Index
+from .termfreqposting import TermFreqPosting
 
 
 class PosInvertedIndex(Index):
@@ -13,6 +14,7 @@ class PosInvertedIndex(Index):
     def __init__(self):
         """Constructs an empty index using the given vocabulary and corpus size."""
         self._matrix : dict = dict()
+        
 
     def add_term(self, term : str, doc_id : int, pos : int):
         """Records that the given term occurred at a given position in the given document ID."""
@@ -25,10 +27,21 @@ class PosInvertedIndex(Index):
             self._matrix[term] = [Posting(doc_id, [pos])]
         
 
-    def get_postings(self, term : str) -> Iterable[Posting]:
+    def get_p_postings(self, term : str) -> Iterable[Posting]:
         """Returns a list of Postings for all documents that contain the given term."""
         if term in self._matrix:
             return self._matrix[term]
+        else:
+            return list()
+
+    def get_np_postings(self, term : str) -> Iterable[Posting]:
+        """Returns a list of Postings for all documents that contain the given term."""
+
+        # seems silly but here we are.
+        if term in self._matrix:
+            postings_list = []
+            for post in self._matrix[term]:
+                postings_list.append(TermFreqPosting(post.doc_id, len(post.positions)))
         else:
             return list()
 

@@ -13,11 +13,18 @@ class PhraseLiteral(QueryComponent):
         QueryComponent.__init__(self)
         self.terms = [s for s in terms]
 
+
     @property
+    def tokenizer():
+        return PhraseLiteral._tokenizer
+
+        
+    @tokenizer.setter
     def tokenizer(tokenizer : TokenProcessor):
         PhraseLiteral._tokenizer = tokenizer
 
-    def get_postings(self, index) -> list[Posting]:
+
+    def get_p_postings(self, index) -> list[Posting]:
         # check if this is a valid PhraseLiteral
         if len(self.terms) == 0:
             return []
@@ -25,10 +32,10 @@ class PhraseLiteral(QueryComponent):
         # offset keeps count of space between term positions
         offset = 0
 
-        a = index.get_postings(PhraseLiteral.tokenizer.process_token(self.terms[0])[-1]) 
+        a = index.get_p_postings(PhraseLiteral.tokenizer.process_token(self.terms[0])[-1]) 
 
         for i in range(len(self.terms)-1):
-            b = index.get_postings(PhraseLiteral.tokenizer.process_token(self.terms[i+1])[-1]) 
+            b = index.get_p_postings(PhraseLiteral.tokenizer.process_token(self.terms[i+1])[-1]) 
             a_ptr = 0
             b_ptr = 0
             offset += 1

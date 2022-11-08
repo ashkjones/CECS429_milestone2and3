@@ -7,3 +7,4 @@ from queries.booleanqueryparser import BooleanQueryParser
 from queries.specialquery import SpecialQuery
 from queries.notquery import NotQuery
 from queries.tokencontroller import TokenController
+from queries.rankedqueryparser import RankedQueryParser

@@ -9,16 +9,24 @@ class TermLiteral(QueryComponent):
     """
     _tokenizer : TokenProcessor = NoTokenProcessor()
 
-    @property
-    def tokenizer(tokenizer : TokenProcessor):
-        TermLiteral._tokenizer = tokenizer
-
     def __init__(self, term : str):
         QueryComponent.__init__(self)
         self.term = term
 
+
+    @property
+    def tokenizer(tokenizer : TokenProcessor):
+        return TermLiteral._tokenizer
+
+
+    @tokenizer.setter
+    def tokenizer(tokenizer):
+        TermLiteral._tokenizer = tokenizer
+
+
     def get_postings(self, index) -> list[Posting]:
-        return index.get_postings(self._tokenizer.process_token(self.term)[-1])
+        # term literal will keep positions for phrase literals
+        return index.get_p_postings(self._tokenizer.process_token(self.term)[-1])
 
 
     def __str__(self) -> str:

@@ -27,7 +27,7 @@ class TermDocumentIndex(Index):
         else:
             raise InvalidOperation("Cannot add a term that is not already in the matrix")
 
-    def get_postings(self, term : str) -> Iterable[Posting]:
+    def get_p_postings(self, term : str) -> Iterable[Posting]:
         """Returns a list of Postings for all documents that contain the given term."""
         # TODO: implement this method.
 		# Binary search the self.vocabulary list for the given term. (see bisect_left, above)

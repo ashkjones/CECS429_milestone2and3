@@ -1,6 +1,8 @@
+from pathlib import Path
+from typing import Iterable
 from documents.directorycorpus import DirectoryCorpus
-from indexing import Index, DiskIndexWriter, DiskPositionalIndex
-from queries import SpecialQuery, BooleanQueryParser, TokenController
+from indexing import Index, DiskIndexWriter, DiskPositionalIndex, Posting
+from queries import SpecialQuery, BooleanQueryParser, TokenController, RankedQueryParser
 from text import (BasicTokenProcessor, StemmingTokenProcessor, TokenProcessor,
     NoTokenProcessor, BackStemTokenProcessor, TokenStream, EnglishTokenStream)
 
@@ -26,39 +28,7 @@ def execute_special(command : list[str], d : DirectoryCorpus, index : Index):
     return d, index
 
 
-
-# create the positional inverted index in memory
-
-
-"""runs milestone1 stuff"""
-def milestone1():
-    # User can change token process at runtime only at beginning
-    tokenizer : TokenProcessor = None
-    print("Select Token Processor to use: \n 1) None \n 2) Basic \n 3) Stemming \n 4) Other Stemming\n")
-    while(True):
-        selection = input("Enter selection number: ")
-        if selection == "1":
-            tokenizer = NoTokenProcessor()
-        elif selection == "2":
-            tokenizer = BasicTokenProcessor()
-        elif selection == "3":
-            tokenizer = StemmingTokenProcessor()
-        elif selection == "4":
-            tokenizer = BackStemTokenProcessor()
-        else:
-            print("No such option exists\n")
-            continue
-        TokenController(tokenizer)
-        break
-
-    path = input("\nEnter path of corpus directory: ")
-    # easy copy and paste
-    # /Users/ashleyjones/Documents/CSULB/2022Fall/CECS429/SearchFoundations_Python/MobyDick10Chapters
-    # /Users/ashleyjones/Documents/CSULB/2022Fall/CECS429/SearchFoundations_Python/all-nps-sites-extracted
-
-    d, index = SpecialQuery.new_index(path)
-
-
+def boolean_retrieval(d : DirectoryCorpus, index : Index):
     while True: 
         parser = BooleanQueryParser()
         query = input("\nEnter query: ")
@@ -67,59 +37,85 @@ def milestone1():
             command : list[str] = query[1:].split(' ')
             d, index = execute_special(command, d, index)   
         else:
-            postings = parser.parse_query(query).get_postings(index)
+            postings = parser.parse_query(query).get_p_postings(index)
             for p in postings:
                 print(f"ID {p.doc_id} | Title \"{d.get_document(p.doc_id).title}\" | File: {d.get_document(p.doc_id).name}")
             print(f"Number of Documents: {len(postings)}\n")
+            view_doc(postings, d)
 
-            while len(postings) > 0:
-                view = input(f"\nView Document (y/n)? " )
-                if view[0].lower() == 'y':
-                    id = int(input("Enter Document ID: "))
-                    stream : TokenStream = EnglishTokenStream(d.get_document(id).get_content())
-                    for s in stream:
-                        print(s, end= ' ')
-                else:
-                    break
-            
+
+def view_doc(scored : any, d : DirectoryCorpus):
+    while len(scored) > 0:
+        view = input(f"\nView Document (y/n)? " )
+        if view[0].lower() == 'y':
+            id = int(input("Enter Document ID: "))
+            stream : TokenStream = EnglishTokenStream(d.get_document(id).get_content())
+            for s in stream:
+                print(s, end= ' ')
+        else:
+            break
+
+
+def ranked_retrieval(d : DirectoryCorpus, index : Index): 
+    while True:
+        parser = RankedQueryParser()
+        query = input("\nEnter query: ")
+
+        if query[0] == ":": 
+            command : list[str] = query[1:].split(' ')
+            d, index = execute_special(command, d, index)   
+        else:
+
+            # this needs to be DPI or cannot calculate ranks
+            if not isinstance(index, DiskPositionalIndex):
+                print("Cannot do ranked retrieval without weights file")
+                exit(1)
+            top_docs = parser.parse_query(query, index)
+            for i in range(len(top_docs)):
+                doc = top_docs[i]
+                print(f"{i+1}. ID {doc[1]} | Title \"{d.get_document(doc[0]).title}\" | File: {d.get_document(doc[0]).name} | Score: {doc[1]:.4f}")
+            view_doc(top_docs, d)
+
+
+
+def build_index(tokenizer : TokenProcessor):
+    corpus_path = input("\nEnter corpus path: ")
+    d, index = SpecialQuery.new_index(corpus_path)
+    DiskIndexWriter.write_index(index, corpus_path)
+
+
+def query_index(tokenizer : TokenProcessor):
+    corpus_path = input("\nEnter corpus path: ")
+    d : DirectoryCorpus = DirectoryCorpus.load_text_directory(corpus_path)
+    path = Path(corpus_path, "index")
+    index = DiskPositionalIndex(path)
+
+    choice = (input(f"\n1. Boolean retrieval.\n2. Ranked retrieval.\n"))
+    if choice == '1':
+        boolean_retrieval(d, index)
+    elif choice == '2':
+        ranked_retrieval(d, index)
+    else:
+        print("Selection not recognized. Please try again.")
+
 
 def milestone2():
     tokenizer = StemmingTokenProcessor()
     TokenController(tokenizer)
-    # tokenizer : TokenProcessor = None
-    # print("Select Token Processor to use: \n 1) None \n 2) Basic \n 3) Stemming \n 4) Other Stemming\n")
-    # while(True):
-    #     selection = input("Enter selection number: ")
-    #     if selection == "1":
-    #         tokenizer = NoTokenProcessor()
-    #     elif selection == "2":
-    #         tokenizer = BasicTokenProcessor()
-    #     elif selection == "3":
-    #         tokenizer = StemmingTokenProcessor()
-    #     elif selection == "4":
-    #         tokenizer = BackStemTokenProcessor()
-    #     else:
-    #         print("No such option exists\n")
-    #         continue
-    #     TokenController(tokenizer)
-    #     break
 
-    corpus_path = input("\nEnter path of corpus directory: ")
-    disk_path = input("\nEnter path of directory to save on disk to: ")
+    choice = input(f"\n1. Build index.\n2. Query index.\n")
+    if choice == '1':
+        build_index(tokenizer)
+    elif choice == '2':
+        query_index(tokenizer)
+    else:
+        print("Selection not recognized. Exiting...")
+        exit()
+
+
     # easy copy and paste
     # /Users/ashleyjones/Documents/CSULB/2022Fall/CECS429/SearchFoundations_Python/MobyDick10Chapters
     # /Users/ashleyjones/Documents/CSULB/2022Fall/CECS429/SearchFoundations_Python/all-nps-sites-extracted
-
-    d, index = SpecialQuery.new_index(corpus_path)
-
-    # /Users/ashleyjones/Documents/CSULB/2022Fall/CECS429/search_engine
-
-    DiskIndexWriter.write_index(index, disk_path)
-
-    index = DiskPositionalIndex(disk_path)
-    vocab = index.vocabulary()
-    postings = index.get_postings('hello')
-    
 
     print('bloop')
 

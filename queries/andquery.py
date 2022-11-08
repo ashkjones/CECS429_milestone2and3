@@ -10,13 +10,13 @@ class AndQuery(QueryComponent):
     def get_postings(self, index : Index) -> list[Posting]:
         # TODO: program the merge for an AndQuery, by gathering the postings of the composed QueryComponents and
 		# intersecting the resulting postings.
-        a = self.components[0].get_postings(index)
+        a = self.components[0].get_np_postings(index)
         for i in range(len(self.components)-1):
-            b = self.components[i+1].get_postings(index)
+            b = self.components[i+1].get_np_postings(index)
             if self.components[i].polarity + self.components[i+1].polarity == 2:
                 a = self.__AND(a, b)
             elif self.components[i].polarity + self.components[i+1].polarity == 0:
-                a = OrQuery(self.components[i:i+2]).get_postings(index)
+                a = OrQuery(self.components[i:i+2]).get_np_postings(index)
                 continue
             else:
                 a = self.__AND_NOT(a, b, self.components[i].polarity)

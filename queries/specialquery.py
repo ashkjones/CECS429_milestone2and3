@@ -14,8 +14,13 @@ class SpecialQuery:
     index : Index = None
 
     @property
+    def tokenizer():
+        return SpecialQuery._tokenizer
+
+    @tokenizer.setter
     def tokenizer(tokenizer : TokenProcessor):
         SpecialQuery._tokenizer = tokenizer
+
 
     '''Returns the stemmed token if there is a tokenizer set'''
     @staticmethod

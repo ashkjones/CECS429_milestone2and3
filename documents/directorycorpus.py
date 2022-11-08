@@ -58,4 +58,6 @@ class DirectoryCorpus:
                 lambda f: f.suffix in [".txt", ".json"], 
                 factories={'.txt': textfiledocument.TextFileDocument.load_from,
                             '.json': jsonfiledocument.JsonFileDocument.load_from})
+        if c._documents is None:
+            c._documents = c._read_documents()
         return c
