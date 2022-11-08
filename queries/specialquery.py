@@ -51,6 +51,8 @@ class SpecialQuery:
             for s in stream:
                 terms : list[str] = SpecialQuery.tokenizer.process_token(s)
                 # skip over empty strings
+                if len(terms) == 0:
+                    continue
                 if not bool(terms[0]):
                     continue
                 # the token processor might return several terms

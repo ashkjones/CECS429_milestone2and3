@@ -12,10 +12,11 @@ class TokenController():
         return cls.instance
 
     def __init__(self, tokenizer : TokenProcessor):
-        self.tokenizer = tokenizer
+        self._tokenizer = tokenizer
         SpecialQuery.tokenizer = tokenizer
         TermLiteral.tokenizer = tokenizer
         PhraseLiteral.tokenizer = tokenizer
+        RankedQueryParser.tokenizer = tokenizer
 
     @property
     def tokenizer(self):

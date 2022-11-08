@@ -34,7 +34,7 @@ class RankedQueryParser():
             # if df is 0, we can continue
             if df == 0:
                 continue
-            w_qt = log(1 + (len(tokens)/df))
+            w_qt = log(1 + (len(terms)/df))
 
             for post in postings:
                 # it will be but just incase, we will check
