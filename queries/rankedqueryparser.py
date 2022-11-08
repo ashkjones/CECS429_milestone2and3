@@ -39,11 +39,11 @@ class RankedQueryParser():
             for post in postings:
                 # it will be but just incase, we will check
                 if isinstance(post, TermFreqPosting):
-                    w_td = 1 + log(post.tf)
+                    w_dt = post.w_dt
                     if post.doc_id in A:
-                        A[post.doc_id] = w_td*w_qt
+                        A[post.doc_id] = w_dt*w_qt
                     else:
-                        A[post.doc_id] = (w_td*w_qt)
+                        A[post.doc_id] = (w_dt*w_qt)
                 else: 
                     raise Exception("Not a TermFreqPost in ranking")
         

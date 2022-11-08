@@ -18,13 +18,12 @@ def execute_special(command : list[str], d : DirectoryCorpus, index : Index):
     elif command[0] == "stem" and length == 2:
         print(SpecialQuery.stem(command[1]))
     elif command[0] == "index" and length == 2:
-        d, index = SpecialQuery.new_index(command[1])
+        SpecialQuery.new_index(command[1])
     elif command[0] == "vocab":
         SpecialQuery.vocabulary(index)
     else:
         print("Unrecognized command\n")
     # so I guess python isn't Java and needs this line
-    return d, index
 
 
 def boolean_retrieval(d : DirectoryCorpus, index : Index):
@@ -34,9 +33,9 @@ def boolean_retrieval(d : DirectoryCorpus, index : Index):
 
         if query[0] == ":": 
             command : list[str] = query[1:].split(' ')
-            d, index = execute_special(command, d, index)   
+            execute_special(command, d, index)   
         else:
-            postings = parser.parse_query(query).get_p_postings(index)
+            postings = parser.parse_query(query).get_postings(index)
             for p in postings:
                 print(f"ID {p.doc_id} | Title \"{d.get_document(p.doc_id).title}\" | File: {d.get_document(p.doc_id).name}")
             print(f"Number of Documents: {len(postings)}\n")
@@ -62,7 +61,9 @@ def ranked_retrieval(d : DirectoryCorpus, index : Index):
 
         if query[0] == ":": 
             command : list[str] = query[1:].split(' ')
-            d, index = execute_special(command, d, index)   
+            execute_special(command, d, index)  
+            if command[0] == 'index':
+                query_index() 
         else:
 
             # this needs to be DPI or cannot calculate ranks
@@ -77,14 +78,12 @@ def ranked_retrieval(d : DirectoryCorpus, index : Index):
 
 
 
-def build_index(tokenizer : TokenProcessor):
-    corpus_path = input("\nEnter corpus path: ")
-    d, index = SpecialQuery.new_index(corpus_path)
-    DiskIndexWriter.write_index(index, corpus_path)
+def build_index(corpus_path : str):
+    SpecialQuery.new_index(corpus_path)
 
 
-def query_index(tokenizer : TokenProcessor):
-    corpus_path = input("\nEnter corpus path: ")
+
+def query_index(corpus_path : str):
     d : DirectoryCorpus = DirectoryCorpus.load_text_directory(corpus_path)
     path = Path(corpus_path, "index")
     index = DiskPositionalIndex(path)
@@ -103,10 +102,12 @@ def milestone2():
     TokenController(tokenizer)
 
     choice = input(f"\n1. Build index.\n2. Query index.\n")
+
+    corpus_path = input("\nEnter corpus path: ")
     if choice == '1':
-        build_index(tokenizer)
+        build_index(corpus_path)
     elif choice == '2':
-        query_index(tokenizer)
+        query_index(corpus_path)
     else:
         print("Selection not recognized. Exiting...")
         exit()

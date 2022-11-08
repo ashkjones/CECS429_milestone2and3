@@ -24,7 +24,7 @@ class PhraseLiteral(QueryComponent):
         PhraseLiteral._tokenizer = tokenizer
 
 
-    def get_p_postings(self, index) -> list[Posting]:
+    def get_postings(self, index) -> list[Posting]:
         # check if this is a valid PhraseLiteral
         if len(self.terms) == 0:
             return []

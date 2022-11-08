@@ -25,8 +25,8 @@ class TermLiteral(QueryComponent):
 
 
     def get_postings(self, index) -> list[Posting]:
-        # term literal will keep positions for phrase literals
-        return index.get_p_postings(self._tokenizer.process_token(self.term)[-1])
+        # other booleans don't need postings
+        return index.get_np_postings(self._tokenizer.process_token(self.term)[-1])
 
 
     def __str__(self) -> str:

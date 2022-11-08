@@ -10,7 +10,7 @@ import struct
 import sqlite3
 
 
-class DiskIndexWriter:
+class DiskIndexWriter():
    """Static class that can write a Positional Inverted Index to a binary file
       in format df_t d tf_td p1 p2 ..."""
 
@@ -59,7 +59,19 @@ class DiskIndexWriter:
          
          for post in postings:
             post_file.write(struct.pack('=i', post.doc_id - doc_gap))
-            w_dt = 1 + log(DiskIndexWriter.__pos_write(post, post_file))
+
+            # determine tf and positions
+            to_write = DiskIndexWriter.__pos_write(post)
+
+            # calculate w_dt and write to file
+            w_dt = 1 + log(to_write[0])
+            post_file.write(struct.pack('=d', w_dt))
+
+            # write tf and positions to file
+            for value in to_write:
+               post_file.write(struct.pack('=i', value))
+      
+            # update doc_gap to subtract next loop
             doc_gap = post.doc_id
 
             if post.doc_id in l_helper:
@@ -79,19 +91,20 @@ class DiskIndexWriter:
       #    print("Writing Index to file failed.")
 
 
-   def __pos_write(post : Posting, file : FileIO):
+   def __pos_write(post : Posting):
 
       positions : list[int] = post.positions # shallow copy
       tf = len(positions)
-      file.write(struct.pack('=i', tf))
+      to_write = [0]*(tf+1)   # values that need to be written to file
+      to_write[0] = tf
 
       pos_gap = 0
 
       for i in range(0, tf):
-         file.write(struct.pack('=i', positions[i] - pos_gap))
+         to_write[i+1] = positions[i] - pos_gap
          pos_gap = positions[i]
 
-      return tf
+      return to_write
 
 
          
