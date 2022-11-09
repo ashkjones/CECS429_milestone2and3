@@ -1,6 +1,7 @@
 import heapq
 import struct
 from io import FileIO
+from documents.directorycorpus import DirectoryCorpus
 from indexing import Index, TermFreqPosting, DiskPositionalIndex
 from numpy import log
 from text import TokenProcessor, NoTokenProcessor
@@ -10,7 +11,7 @@ class RankedQueryParser():
     tokenizer : TokenProcessor = NoTokenProcessor()
 
 
-    def parse_query(self, query : str, index : DiskPositionalIndex, k : int = 10):
+    def parse_query(self, query : str, index : DiskPositionalIndex, d : DirectoryCorpus, k : int = 10):
 
         tokens = query.split(' ')
         terms = flatten(list(map(self.tokenizer.process_token, tokens)))
@@ -26,7 +27,7 @@ class RankedQueryParser():
             # if df is 0, we can continue
             if df == 0:
                 continue
-            w_qt = log(1 + (len(terms)/df))
+            w_qt = log(1 + (len(d)/df))
 
             for post in postings:
                 # it will be but just incase, we will check
