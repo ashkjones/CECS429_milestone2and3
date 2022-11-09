@@ -1,27 +1,19 @@
 import heapq
+import struct
 from io import FileIO
-from helperfunction.mathfunctions import get_weights
 from indexing import Index, TermFreqPosting, DiskPositionalIndex
 from numpy import log
 from text import TokenProcessor, NoTokenProcessor
 
 class RankedQueryParser():
    
-    _tokenizer : TokenProcessor = NoTokenProcessor()
+    tokenizer : TokenProcessor = NoTokenProcessor()
 
-    
-    @property
-    def tokenizer():
-        return RankedQueryParser._tokenizer
-
-    @tokenizer.setter
-    def tokenizer(tokenizer : TokenProcessor):
-        RankedQueryParser._tokenizer = tokenizer
 
     def parse_query(self, query : str, index : DiskPositionalIndex, k : int = 10):
 
         tokens = query.split(' ')
-        terms = flatten(list(map(self._tokenizer.process_token, tokens)))
+        terms = flatten(list(map(self.tokenizer.process_token, tokens)))
 
         # accumulator
         A = {}
@@ -41,7 +33,7 @@ class RankedQueryParser():
                 if isinstance(post, TermFreqPosting):
                     w_dt = post.w_dt
                     if post.doc_id in A:
-                        A[post.doc_id] = w_dt*w_qt
+                        A[post.doc_id] += w_dt*w_qt
                     else:
                         A[post.doc_id] = (w_dt*w_qt)
                 else: 
@@ -62,6 +54,11 @@ def value(pair):
 
 def flatten(l):
     return [item for sublist in l for item in sublist]
+
+def get_weights(doc_id : int, weights : FileIO) -> float: 
+   offset = doc_id*8
+   weights.seek(offset)
+   return struct.unpack("=d", weights.read(8))[0]
 
 
 

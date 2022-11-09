@@ -53,11 +53,11 @@ class DirectoryCorpus:
         return results
 
     @staticmethod
-    def load_text_directory(path) -> 'DirectoryCorpus':
+    def load_text_directory(path, flag = 0) -> 'DirectoryCorpus':
         c = DirectoryCorpus(path, 
                 lambda f: f.suffix in [".txt", ".json"], 
                 factories={'.txt': textfiledocument.TextFileDocument.load_from,
                             '.json': jsonfiledocument.JsonFileDocument.load_from})
-        if c._documents is None:
+        if flag == 1:
             c._documents = c._read_documents()
         return c

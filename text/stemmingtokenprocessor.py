@@ -10,16 +10,24 @@ class StemmingTokenProcessor(TokenProcessor):
 
     # all the quotes go away. I hate special chars
     _quote_re = re.compile(r"[\u0027\u0022\u2018\u2019\u0060\u00B4\u201B\u201C\u201D]+")
+    # _quotes = ["\u0027", "\u0022," "\u2018", "\u2019", "\u0060", "\u00B4", "\u201B", "\u201C", "\u201D"]
 
     
     # Snowball is the better porter2 package that doesn't give different values for "the"
     # and break my code
     _stemmer = SnowballStemmer(language='english')
+
     
     def process_token(self, token : str) -> list[str]:
         if len(token) < 0:
             return []
         # lets just get rid of quotes first because my code hates me
+        
+        # stack overflow swears this is faster than regex I promise
+        # that was a lie
+        # for q in StemmingTokenProcessor._quotes:
+        #     token = token.replace(q, '')
+
         token = re.sub(self._quote_re, "", token)
         token = token.lower()
         length = len(token)

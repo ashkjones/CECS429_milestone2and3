@@ -8,13 +8,16 @@ from .positionalinvertedindex import PosInvertedIndex
 from .postings import Posting
 import struct
 import sqlite3
+from documents import DirectoryCorpus
 
 
 class DiskIndexWriter():
    """Static class that can write a Positional Inverted Index to a binary file
       in format df_t d tf_td p1 p2 ..."""
 
-   def write_index(index : PosInvertedIndex, dir : str):
+   def write_index(index : PosInvertedIndex, dir : str, d : DirectoryCorpus = None):
+      if d is None:
+         d = DirectoryCorpus.load_text_directory(dir)
       vocab = index.vocabulary()
       new_folder = Path(dir, "index")
       if not new_folder.exists():
@@ -28,6 +31,13 @@ class DiskIndexWriter():
       dw_file = open(dw_path, "wb")
 
       l_helper = {}
+
+      # populate dict with doc_ids and set to 0
+      for i in range(len(d)):
+         l_helper[i] = 0
+
+
+      doc_id_check = set()
 
 
       connection = sqlite3.connect(db_path)
@@ -52,11 +62,13 @@ class DiskIndexWriter():
 
          postings : Iterable[Posting] = index.get_p_postings(term) # shallow copy
          df = len(postings)
+         if df == 0:
+            print()
          post_file.write(struct.pack('=i', df))
 
          doc_gap = 0
 
-         # loop through the remaining postings
+         # loop through the postings
          
          for post in postings:
             post_file.write(struct.pack('=i', post.doc_id - doc_gap))
@@ -75,13 +87,12 @@ class DiskIndexWriter():
             # update doc_gap to subtract next loop
             doc_gap = post.doc_id
 
-            if post.doc_id in l_helper:
-               l_helper[post.doc_id] += w_dt*w_dt
-            else:
-               l_helper[post.doc_id] = w_dt*w_dt
+            l_helper[post.doc_id] += w_dt*w_dt
+
       
       for i in sorted(l_helper.keys()):
-         dw_file.write(struct.pack('=d', sqrt(l_helper[i])))
+         binary = struct.pack('=d', sqrt(l_helper[i]))
+         dw_file.write(binary)
 
       connection.commit()
       connection.close()
@@ -108,10 +119,4 @@ class DiskIndexWriter():
       return to_write
 
 
-         
-
-         
-      
-
-             
 

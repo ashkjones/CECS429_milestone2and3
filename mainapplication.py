@@ -2,7 +2,8 @@ from pathlib import Path
 from typing import Iterable
 from documents.directorycorpus import DirectoryCorpus
 from indexing import Index, DiskIndexWriter, DiskPositionalIndex, Posting
-from queries import SpecialQuery, BooleanQueryParser, TokenController, RankedQueryParser
+from queries import (SpecialQuery, BooleanQueryParser,
+    TokenController, RankedQueryParser, TermLiteral)
 from text import (StemmingTokenProcessor, TokenProcessor, TokenStream, EnglishTokenStream)
 
 """This program builds an index over the .txt and .json files in a provided
@@ -84,7 +85,8 @@ def build_index(corpus_path : str):
 
 
 def query_index(corpus_path : str):
-    d : DirectoryCorpus = DirectoryCorpus.load_text_directory(corpus_path)
+    d : DirectoryCorpus = DirectoryCorpus.load_text_directory(corpus_path, 1)
+    print("num documents =", len(d))
     path = Path(corpus_path, "index")
     index = DiskPositionalIndex(path)
 

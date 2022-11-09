@@ -7,26 +7,17 @@ class TermLiteral(QueryComponent):
     """
     A TermLiteral represents a single term in a subquery.
     """
-    _tokenizer : TokenProcessor = NoTokenProcessor()
+    tokenizer : TokenProcessor = NoTokenProcessor()
 
     def __init__(self, term : str):
         QueryComponent.__init__(self)
         self.term = term
 
 
-    @property
-    def tokenizer(tokenizer : TokenProcessor):
-        return TermLiteral._tokenizer
-
-
-    @tokenizer.setter
-    def tokenizer(tokenizer):
-        TermLiteral._tokenizer = tokenizer
-
-
     def get_postings(self, index) -> list[Posting]:
         # other booleans don't need postings
-        return index.get_np_postings(self._tokenizer.process_token(self.term)[-1])
+        print("blooop")
+        return index.get_np_postings(self.tokenizer.process_token(self.term)[-1])
 
 
     def __str__(self) -> str:

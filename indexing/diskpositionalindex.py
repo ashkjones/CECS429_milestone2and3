@@ -60,6 +60,7 @@ class DiskPositionalIndex(Index):
                 p_gap = p_td[j]
             # add to postings list
             postings.append(Posting(doc_id, p_td))
+            
 
         return postings
 
@@ -83,6 +84,8 @@ class DiskPositionalIndex(Index):
         doc_gap = 0
         for i in range(df):
             doc_id = struct.unpack('=i', self.__postings.read(4))[0] + doc_gap
+            # if doc_id >= 36788:
+            #     j = 5
             w_dt = struct.unpack('=d', self.__postings.read(8))[0]
             tf = struct.unpack('=i', self.__postings.read(4))[0]
 

@@ -7,21 +7,11 @@ class PhraseLiteral(QueryComponent):
     Represents a phrase literal consisting of one or more terms that must occur in sequence.
     """
 
-    _tokenizer : TokenProcessor = NoTokenProcessor()
+    tokenizer : TokenProcessor = NoTokenProcessor()
 
     def __init__(self, terms : list[str]):
         QueryComponent.__init__(self)
         self.terms = [s for s in terms]
-
-
-    @property
-    def tokenizer():
-        return PhraseLiteral._tokenizer
-
-        
-    @tokenizer.setter
-    def tokenizer(tokenizer : TokenProcessor):
-        PhraseLiteral._tokenizer = tokenizer
 
 
     def get_postings(self, index) -> list[Posting]:
