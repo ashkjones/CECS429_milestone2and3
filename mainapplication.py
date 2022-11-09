@@ -24,7 +24,6 @@ def execute_special(command : list[str], d : DirectoryCorpus, index : Index):
         SpecialQuery.vocabulary(index)
     else:
         print("Unrecognized command\n")
-    # so I guess python isn't Java and needs this line
 
 
 def boolean_retrieval(d : DirectoryCorpus, index : Index):

@@ -110,7 +110,7 @@ class DiskPositionalIndex(Index):
             cursor = connection.cursor()
             cursor.execute("SELECT term FROM term_positions")
             terms = cursor.fetchall()
-
+            terms = [sublist[0] for sublist in terms]
             connection.close()
             return terms
         except:
