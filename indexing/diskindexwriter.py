@@ -46,7 +46,7 @@ class DiskIndexWriter():
       cursor.execute("DROP TABLE IF EXISTS term_positions")
 
       table = """ CREATE TABLE term_positions (
-               term VARCHAR(255) NOT NULL,
+               term VARCHAR(255) NOT NULL PRIMARY KEY,
                position INT NOT NULL
                ); """
 
