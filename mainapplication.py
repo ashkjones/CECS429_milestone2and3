@@ -60,18 +60,16 @@ def ranked_retrieval(d : DirectoryCorpus, index : Index):
         parser = RankedQueryParser()
         query = input("\nEnter query: ")
 
+        # change this line if not DPI but we need weights as IO
+        weights = index.weights 
+
         if query[0] == ":": 
             command : list[str] = query[1:].split(' ')
             execute_special(command, d, index)  
             if command[0] == 'index':
                 query_index() 
         else:
-
-            # this needs to be DPI or cannot calculate ranks
-            if not isinstance(index, DiskPositionalIndex):
-                print("Cannot do ranked retrieval without weights file")
-                exit(1)
-            top_docs = parser.parse_query(query, index, d)
+            top_docs = parser.parse_query(query, index, d, weights)
             for i in range(len(top_docs)):
                 doc = top_docs[i]
                 print(f"{i+1}. ID {doc[0]} | \"{d.get_document(doc[0]).title}\" | {d.get_document(doc[0]).name} | Score: {doc[1]:.4f}")

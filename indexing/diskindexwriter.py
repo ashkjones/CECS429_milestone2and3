@@ -1,4 +1,4 @@
-from io import FileIO
+from typing import IO
 from math import sqrt
 from pathlib import Path
 from typing import Iterable

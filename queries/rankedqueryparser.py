@@ -1,6 +1,7 @@
 import heapq
 import struct
 from io import FileIO
+from typing import IO
 from documents.directorycorpus import DirectoryCorpus
 from indexing import Index, TermFreqPosting, DiskPositionalIndex
 from numpy import log
@@ -11,7 +12,8 @@ class RankedQueryParser():
     tokenizer : TokenProcessor = NoTokenProcessor()
 
 
-    def parse_query(self, query : str, index : DiskPositionalIndex, d : DirectoryCorpus, k : int = 10):
+    def parse_query(self, query : str, index : DiskPositionalIndex, d : DirectoryCorpus,
+        weights: IO, k : int = 10):
 
         tokens = query.split(' ')
         terms = flatten(list(map(self.tokenizer.process_token, tokens)))
@@ -30,7 +32,7 @@ class RankedQueryParser():
             w_qt = log(1 + (len(d)/df))
 
             for post in postings:
-                # it will be but just incase, we will check
+                # it will because np_postings but just incase, we will check
                 if isinstance(post, TermFreqPosting):
                     w_dt = post.w_dt
                     if post.doc_id in A:
@@ -45,7 +47,7 @@ class RankedQueryParser():
 
         heap = []
         for doc in A:
-            doc_weight = get_weights(doc, index.weights)
+            doc_weight = get_weights(doc, weights)
             heapq.heappush(heap, (doc, A[doc]/doc_weight))
 
         return heapq.nlargest(k, heap, key=value)
@@ -56,7 +58,7 @@ def value(pair):
 def flatten(l):
     return [item for sublist in l for item in sublist]
 
-def get_weights(doc_id : int, weights : FileIO) -> float: 
+def get_weights(doc_id : int, weights : IO) -> float: 
    offset = doc_id*8
    weights.seek(offset)
    return struct.unpack("=d", weights.read(8))[0]
