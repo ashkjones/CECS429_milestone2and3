@@ -3,13 +3,13 @@ from .notquery import NotQuery
 from indexing import Index, Posting
 
 class AndQuery(QueryComponent):
+    """A AndQuery has contains other QueryComponents and performs AND operations on their postings"""
     def __init__(self, components : list[QueryComponent]):
         QueryComponent.__init__(self)
         self.components = components
 
     def get_postings(self, index : Index) -> list[Posting]:
-        # TODO: program the merge for an AndQuery, by gathering the postings of the composed QueryComponents and
-		# intersecting the resulting postings.
+        """Performs AND of components postings and returns the results"""
         a = self.components[0].get_postings(index)
         for i in range(len(self.components)-1):
             b = self.components[i+1].get_postings(index)

@@ -2,12 +2,13 @@ from .querycomponent import QueryComponent
 from indexing import Index, Posting
 
 class OrQuery(QueryComponent):
+    """A OrQuery has contains other QueryComponents and performs OR operations on their postings"""
     def __init__(self, components : list[QueryComponent]):
         QueryComponent.__init__(self)
         self.components = components
 
     def get_postings(self, index : Index) -> list[Posting]:
-
+        """Performs OR of components postings and returns the results"""
         a = self.components[0].get_postings(index)
         for i in range(len(self.components)-1):
             b = self.components[i+1].get_postings(index)

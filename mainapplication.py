@@ -11,6 +11,8 @@ from text import (StemmingTokenProcessor, TokenProcessor, TokenStream, EnglishTo
 
 """Handles the special queries"""
 def execute_special(command : list[str], d : DirectoryCorpus, index : Index): 
+    """Handles the special queries"""
+    
     length = len(command)
     if length > 2:
         print("Unrecognized command\n")
@@ -27,6 +29,7 @@ def execute_special(command : list[str], d : DirectoryCorpus, index : Index):
 
 
 def boolean_retrieval(d : DirectoryCorpus, index : Index):
+    """Handles boolean queries"""
     while True: 
         parser = BooleanQueryParser()
         query = input("\nEnter query: ")
@@ -43,6 +46,8 @@ def boolean_retrieval(d : DirectoryCorpus, index : Index):
 
 
 def view_doc(scored : any, d : DirectoryCorpus):
+    """Prompts users and shows documents using doc_id"""
+
     while len(scored) > 0:
         view = input(f"\nView Document (y/n)? " )
         if view[0].lower() == 'y':
@@ -55,6 +60,8 @@ def view_doc(scored : any, d : DirectoryCorpus):
 
 
 def ranked_retrieval(d : DirectoryCorpus, index : Index): 
+    """Handles ranked retrieval queries"""
+
     while True:
         parser = RankedQueryParser()
         query = input("\nEnter query: ")
@@ -77,11 +84,14 @@ def ranked_retrieval(d : DirectoryCorpus, index : Index):
 
 
 def build_index(corpus_path : str):
+    """Builds new index"""
     SpecialQuery.new_index(corpus_path)
 
 
 
 def query_index(corpus_path : str):
+    """Handles query index selection"""
+
     d : DirectoryCorpus = DirectoryCorpus.load_text_directory(corpus_path, 1)
     print("num documents =", len(d))
     path = Path(corpus_path, "index")
@@ -116,7 +126,7 @@ def milestone2():
     # /Users/ashleyjones/Documents/CSULB/2022Fall/CECS429/SearchFoundations_Python/MobyDick10Chapters
     # /Users/ashleyjones/Documents/CSULB/2022Fall/CECS429/SearchFoundations_Python/all-nps-sites-extracted
 
-    print('bloop')
+    print('bloop') # very important part of my code
 
             
 if __name__ == "__main__":

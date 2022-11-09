@@ -3,18 +3,23 @@ import struct
 from io import FileIO
 from typing import IO
 from documents.directorycorpus import DirectoryCorpus
-from indexing import Index, TermFreqPosting, DiskPositionalIndex
+from indexing import Index, TermFreqPosting
 from numpy import log
 from text import TokenProcessor, NoTokenProcessor
 
 class RankedQueryParser():
-   
+    """
+    RankedQueryParser handles ranked queries.
+    """
     tokenizer : TokenProcessor = NoTokenProcessor()
 
 
-    def parse_query(self, query : str, index : DiskPositionalIndex, d : DirectoryCorpus,
+    def parse_query(self, query : str, index : Index, d : DirectoryCorpus,
         weights: IO, k : int = 10):
-
+        """
+        Takes in a query, index, DirectoryCorpus, and weights and returns K (default 10) highest
+        scoring documents.
+        """
         tokens = query.split(' ')
         terms = flatten(list(map(self.tokenizer.process_token, tokens)))
 

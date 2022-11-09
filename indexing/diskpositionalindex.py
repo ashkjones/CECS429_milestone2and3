@@ -8,8 +8,7 @@ from .index import Index
 import sqlite3
 
 class DiskPositionalIndex(Index):
-    """An Index can retrieve postings for a term from a data structure associating terms and the documents
-    that contain them."""
+    """DPI interprets data saved on disk and implements methods of Index class."""
     def __init__(self, dir : str):
       self.__db_dir = Path(dir, 'vocabTable.db')
       self.__postings = open(Path(dir, 'postings.bin'), 'rb')
@@ -30,7 +29,10 @@ class DiskPositionalIndex(Index):
 
 
     def get_p_postings(self, term : str) -> Iterable[Posting]:
-        """Retrieves a sequence of Postings of documents that contain the given term."""
+        """
+        Retrieves a sequence of Postings of documents that contain the given term
+        and only reads in single postings list from disk.
+        """
 
         postings = []
         #try:
@@ -67,7 +69,10 @@ class DiskPositionalIndex(Index):
 
 
     def get_np_postings(self, term : str) -> Iterable[Posting]: 
-        """Retrieves a sequence of Postings of documents that contain the given term without position."""
+        """
+        Retrieves a sequence of Postings of documents that contain the given term without positions.
+        The function returns a list of TermFreqPosting
+        """
         postings = []
         connection = sqlite3.connect(self.__db_dir)
         cursor = connection.cursor()
