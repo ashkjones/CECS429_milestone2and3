@@ -60,6 +60,7 @@ class DiskPositionalIndex(Index):
                 p_gap = p_td[j]
             # add to postings list
             postings.append(Posting(doc_id, p_td))
+            doc_gap = doc_id
             
 
         return postings

@@ -74,7 +74,7 @@ def ranked_retrieval(d : DirectoryCorpus, index : Index):
             top_docs = parser.parse_query(query, index)
             for i in range(len(top_docs)):
                 doc = top_docs[i]
-                print(f"{i+1}. ID {doc[0]} | Title \"{d.get_document(doc[0]).title}\" | File: {d.get_document(doc[0]).name} | Score: {doc[1]:.4f}")
+                print(f"{i+1}. ID {doc[0]} | Title \"{d.get_document(doc[0]).title}\" | File: {d.get_document(doc[0]).name} | Score: {doc[1]*1000:.4f}")
             view_doc(top_docs, d)
 
 
