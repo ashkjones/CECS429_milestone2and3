@@ -122,10 +122,10 @@ def multi_stats(corpus_path):
     choice = (input(f"\n1. Normal \n2. Vocab Elimination \n"))
     if choice == '1':
         map, mrt, tp = run_queries(corpus_path)
-        print(f"\nMAP = {map}\nMRT = {mrt}\nthroughput = {tp}")
+        print(f"\nMean average precision = {map}\nMean response time = {mrt}\nThroughput = {tp}\n")
     elif choice == '2':
         map, mrt, tp = run_queries(corpus_path, Ranking.VOCAB_ELIM)
-        print(f"\nMAP = {map}\nMRT = {mrt}\nthroughput = {tp}")
+        print(f"\nMean average precision = {map}\nMean response time = {mrt}\nThroughput = {tp}\n")
     else:
         print("Selection not recognized. Exiting...")
         exit()
