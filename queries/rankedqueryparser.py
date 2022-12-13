@@ -15,7 +15,7 @@ class RankedQueryParser():
 
 
     def parse_query(self, query : str, index : Index, d : DirectoryCorpus,
-        weights: IO, k : int = 10):
+        weights: IO, k : int = 10, threshold = 0):
         """
         Takes in a query, index, DirectoryCorpus, and weights and returns K (default 10) highest
         scoring documents.
@@ -35,6 +35,9 @@ class RankedQueryParser():
             if df == 0:
                 continue
             w_qt = log(1 + (len(d)/df))
+
+            if w_qt < threshold:
+                continue
 
             for post in postings:
                 # it will because np_postings but just incase, we will check

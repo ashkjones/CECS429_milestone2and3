@@ -1,4 +1,4 @@
-from .tokenprocessor import TokenProcessor
+from text.tokenprocessor import TokenProcessor
 import re
 from nltk.stem.snowball import SnowballStemmer
 
