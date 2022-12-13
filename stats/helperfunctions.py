@@ -239,8 +239,8 @@ def run_single(path):
     plt.xlabel("Recall")
     plt.ylabel("Precision")
     plt.title(f"Precision-Recall for query \"{query}\"")
-    plt.savefig('precision_recall.png')
     plt.legend()
+    plt.savefig('precision_recall.png')
     plt.show()
 
 

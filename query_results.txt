@@ -50,8 +50,8 @@ Default Results
 49.          | 1263.json | Score: 1.1398
 50.          | 1203.json | Score: 1.1338
 Average precision for this query: 0.2214605207326372
-Mean response time: 0.01735816796620687
-Throughput: 57.60976630407163
+Mean response time: 0.006842128435770671
+Throughput: 146.1533511665751
 Vocab Elimination Results
 1. RELEVANT | 0051.json | Score: 2.4151
 2. RELEVANT | 0184.json | Score: 1.9315
@@ -104,5 +104,5 @@ Vocab Elimination Results
 49. RELEVANT | 0102.json | Score: 0.9890
 50.          | 1203.json | Score: 0.9848
 Average precision for this query: 0.22159897611449147
-Mean response time: 0.01715059280395508
-Throughput: 58.307022470348144
+Mean response time: 0.007074602444966634
+Throughput: 141.35069889495625
