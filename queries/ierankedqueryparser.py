@@ -7,7 +7,7 @@ from indexing import Index, TermFreqPosting
 from numpy import log
 from text import TokenProcessor, NoTokenProcessor
 
-class RankedQueryParser():
+class IERankedQueryParser():
     """
     RankedQueryParser handles ranked queries.
     """
@@ -73,21 +73,3 @@ def get_weights(doc_id : int, weights : IO) -> float:
 
 
 
-
-        
-    
-
-
-
-
-         
-
-      
-
-      
-
-
-
-
-
-   
