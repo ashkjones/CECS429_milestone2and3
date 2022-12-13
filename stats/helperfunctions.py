@@ -200,7 +200,7 @@ def run_single(path):
     index = DiskPositionalIndex(Path(path, "index"))
     weights = index.weights 
 
-    choice = input("1. Manual Entry\n2. First Query")
+    choice = input("1. Manual Entry\n2. First Query\n")
 
     if choice == "1":
         query = input("Enter query: ")
@@ -223,11 +223,13 @@ def run_single(path):
     top_docs = parser.parse_query(query, index, d, weights, k)
     file = open("query_results.txt", "w")
     file.write("Default Results")
+    print("Default Results")
     precision_recall(d, top_docs, relevant, Ranking.DEFAULT, file)
     mrt_calc(query, index, d, weights, k, parser, file)
 
     top_docs = parser.parse_query(query, index, d, weights, k, threshold)
     file.write("Vocab Elimination Results")
+    print("Vocab Elimination Results")
     precision_recall(d, top_docs, relevant, Ranking.VOCAB_ELIM, file)
     mrt_calc(query, index, d, weights, k, parser, file)
 
