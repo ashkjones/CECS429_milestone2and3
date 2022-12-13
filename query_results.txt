@@ -1,108 +1,108 @@
 Default Results
-1. RELEVANT | 0012.json | Score: 1.3054
-2. RELEVANT | 0051.json | Score: 1.1988
-3.          | 0172.json | Score: 1.1951
-4.          | 0251.json | Score: 1.1669
-5.          | 1042.json | Score: 1.1105
-6.          | 0253.json | Score: 1.0925
-7.          | 0792.json | Score: 1.0747
-8.          | 0429.json | Score: 1.0444
-9.          | 1169.json | Score: 1.0035
-10.          | 0374.json | Score: 0.9922
-11.          | 0588.json | Score: 0.9920
-12.          | 0914.json | Score: 0.9770
-13.          | 0236.json | Score: 0.9723
-14.          | 0878.json | Score: 0.9585
-15.          | 0681.json | Score: 0.9492
-16.          | 0747.json | Score: 0.9415
-17.          | 0758.json | Score: 0.9113
-18.          | 0430.json | Score: 0.9045
-19.          | 0576.json | Score: 0.8994
-20.          | 0925.json | Score: 0.8955
-21.          | 0415.json | Score: 0.8927
-22.          | 1268.json | Score: 0.8869
-23.          | 1168.json | Score: 0.8838
-24.          | 0036.json | Score: 0.8816
-25.          | 0884.json | Score: 0.8735
-26.          | 1111.json | Score: 0.8654
-27.          | 0152.json | Score: 0.8614
-28. RELEVANT | 0858.json | Score: 0.8525
-29.          | 1361.json | Score: 0.8517
-30.          | 0502.json | Score: 0.8491
-31. RELEVANT | 0876.json | Score: 0.8483
-32.          | 0042.json | Score: 0.8413
-33.          | 1328.json | Score: 0.8395
-34.          | 0100.json | Score: 0.8325
-35. RELEVANT | 0014.json | Score: 0.8292
-36.          | 0658.json | Score: 0.8261
-37.          | 0578.json | Score: 0.8135
-38.          | 1144.json | Score: 0.8125
-39.          | 1380.json | Score: 0.8106
-40.          | 1147.json | Score: 0.8041
-41.          | 0280.json | Score: 0.8013
-42.          | 0316.json | Score: 0.7944
-43.          | 1003.json | Score: 0.7915
-44.          | 0285.json | Score: 0.7884
-45.          | 0917.json | Score: 0.7832
-46.          | 0453.json | Score: 0.7748
-47.          | 1063.json | Score: 0.7726
-48.          | 1167.json | Score: 0.7668
-49.          | 0103.json | Score: 0.7579
-50.          | 0883.json | Score: 0.7499
-Average precision for this query: 0.08203559510567296
-Mean response time: 0.014206798871358235
-Throughput: 70.38883347719242
+1.          | 22719.json | Score: 0.8108
+2. RELEVANT | 36339.json | Score: 0.7215
+3. RELEVANT | 22714.json | Score: 0.7029
+4.          | 12652.json | Score: 0.6579
+5.          | 21010.json | Score: 0.6331
+6.          | 17499.json | Score: 0.6263
+7.          | 12648.json | Score: 0.6168
+8.          | 35508.json | Score: 0.6148
+9.          | 12363.json | Score: 0.6062
+10.          | 16885.json | Score: 0.6014
+11.          | 15962.json | Score: 0.5969
+12.          | 12152.json | Score: 0.5798
+13.          | 12854.json | Score: 0.5785
+14. RELEVANT | 15093.json | Score: 0.5720
+15.          | 12583.json | Score: 0.5647
+16. RELEVANT | 11627.json | Score: 0.5431
+17. RELEVANT | 11845.json | Score: 0.5354
+18. RELEVANT | 22713.json | Score: 0.5322
+19.          | 12575.json | Score: 0.5260
+20.          | 22729.json | Score: 0.5243
+21. RELEVANT | 15565.json | Score: 0.5227
+22.          | 22722.json | Score: 0.5177
+23. RELEVANT | 17707.json | Score: 0.5103
+24.          | 13079.json | Score: 0.5056
+25.          | 21952.json | Score: 0.4964
+26. RELEVANT | 22599.json | Score: 0.4916
+27. RELEVANT | 22741.json | Score: 0.4885
+28. RELEVANT | 11637.json | Score: 0.4825
+29.          | 771.json | Score: 0.4723
+30.          | 35443.json | Score: 0.4690
+31. RELEVANT | 31467.json | Score: 0.4690
+32.          | 32328.json | Score: 0.4684
+33. RELEVANT | 11894.json | Score: 0.4682
+34.          | 19999.json | Score: 0.4557
+35. RELEVANT | 15090.json | Score: 0.4540
+36. RELEVANT | 11871.json | Score: 0.4512
+37.          | 15739.json | Score: 0.4507
+38.          | 22762.json | Score: 0.4427
+39.          | 1491.json | Score: 0.4426
+40.          | 17705.json | Score: 0.4406
+41.          | 35507.json | Score: 0.4304
+42. RELEVANT | 17313.json | Score: 0.4292
+43. RELEVANT | 22755.json | Score: 0.4288
+44. RELEVANT | 15103.json | Score: 0.4272
+45. RELEVANT | 17676.json | Score: 0.4248
+46.          | 7576.json | Score: 0.4240
+47.          | 23993.json | Score: 0.4231
+48.          | 29942.json | Score: 0.4215
+49.          | 6955.json | Score: 0.4181
+50.          | 17314.json | Score: 0.4172
+Average precision for this query: 0.11334783320765901
+Mean response time: 0.00424036979675293
+Throughput: 235.82848853554037
 Vocab Elimination Results
-1. RELEVANT | 0051.json | Score: 2.5761
-2. RELEVANT | 0184.json | Score: 2.0659
-3. RELEVANT | 0486.json | Score: 2.0400
-4. RELEVANT | 0012.json | Score: 2.0331
-5.          | 0332.json | Score: 1.8835
-6. RELEVANT | 0879.json | Score: 1.7465
-7.          | 0878.json | Score: 1.7373
-8.          | 0238.json | Score: 1.6426
-9.          | 1016.json | Score: 1.6229
-10.          | 0573.json | Score: 1.6046
-11.          | 1110.json | Score: 1.5800
-12.          | 0300.json | Score: 1.5467
-13. RELEVANT | 0013.json | Score: 1.4807
-14.          | 0665.json | Score: 1.4515
-15.          | 0262.json | Score: 1.4434
-16.          | 0202.json | Score: 1.4432
-17.          | 1361.json | Score: 1.3759
-18.          | 0141.json | Score: 1.3736
-19. RELEVANT | 0014.json | Score: 1.3708
-20.          | 0439.json | Score: 1.3517
-21.          | 0629.json | Score: 1.3486
-22.          | 1268.json | Score: 1.3391
-23.          | 0746.json | Score: 1.3283
-24.          | 0747.json | Score: 1.3146
-25.          | 0944.json | Score: 1.3093
-26.          | 0359.json | Score: 1.3045
-27. RELEVANT | 0876.json | Score: 1.2756
-28.          | 0131.json | Score: 1.2668
-29.          | 0914.json | Score: 1.2638
-30.          | 0329.json | Score: 1.2619
-31.          | 0373.json | Score: 1.2498
-32.          | 0495.json | Score: 1.2317
-33.          | 0976.json | Score: 1.2285
-34.          | 0435.json | Score: 1.2040
-35.          | 1387.json | Score: 1.2003
-36. RELEVANT | 0102.json | Score: 1.1961
-37.          | 0172.json | Score: 1.1951
-38.          | 1340.json | Score: 1.1889
-39.          | 1228.json | Score: 1.1863
-40.          | 0213.json | Score: 1.1780
-41.          | 0792.json | Score: 1.1744
-42.          | 0576.json | Score: 1.1739
-43.          | 0521.json | Score: 1.1699
-44.          | 0251.json | Score: 1.1669
-45.          | 1328.json | Score: 1.1550
-46.          | 1003.json | Score: 1.1473
-47. RELEVANT | 0056.json | Score: 1.1417
-48.          | 0663.json | Score: 1.1410
-49.          | 1263.json | Score: 1.1398
-50.          | 1203.json | Score: 1.1338
-Average precision for this query: 0.2214605207326372
-Mean response time: 0.017757765452067056
-Throughput: 56.31339160882976
+1.          | 22719.json | Score: 0.8108
+2. RELEVANT | 36339.json | Score: 0.7215
+3. RELEVANT | 22714.json | Score: 0.7029
+4.          | 12652.json | Score: 0.6579
+5.          | 21010.json | Score: 0.6331
+6.          | 17499.json | Score: 0.6263
+7.          | 12648.json | Score: 0.6168
+8.          | 35508.json | Score: 0.6148
+9.          | 12363.json | Score: 0.6062
+10.          | 16885.json | Score: 0.6014
+11.          | 15962.json | Score: 0.5969
+12.          | 12152.json | Score: 0.5798
+13.          | 12854.json | Score: 0.5785
+14. RELEVANT | 15093.json | Score: 0.5720
+15.          | 12583.json | Score: 0.5647
+16. RELEVANT | 11627.json | Score: 0.5431
+17. RELEVANT | 11845.json | Score: 0.5354
+18. RELEVANT | 22713.json | Score: 0.5322
+19.          | 12575.json | Score: 0.5260
+20.          | 22729.json | Score: 0.5243
+21. RELEVANT | 15565.json | Score: 0.5227
+22.          | 22722.json | Score: 0.5177
+23. RELEVANT | 17707.json | Score: 0.5103
+24.          | 13079.json | Score: 0.5056
+25.          | 21952.json | Score: 0.4964
+26. RELEVANT | 22599.json | Score: 0.4916
+27. RELEVANT | 22741.json | Score: 0.4885
+28. RELEVANT | 11637.json | Score: 0.4825
+29.          | 771.json | Score: 0.4723
+30.          | 35443.json | Score: 0.4690
+31. RELEVANT | 31467.json | Score: 0.4690
+32.          | 32328.json | Score: 0.4684
+33. RELEVANT | 11894.json | Score: 0.4682
+34.          | 19999.json | Score: 0.4557
+35. RELEVANT | 15090.json | Score: 0.4540
+36. RELEVANT | 11871.json | Score: 0.4512
+37.          | 15739.json | Score: 0.4507
+38.          | 22762.json | Score: 0.4427
+39.          | 1491.json | Score: 0.4426
+40.          | 17705.json | Score: 0.4406
+41.          | 35507.json | Score: 0.4304
+42. RELEVANT | 17313.json | Score: 0.4292
+43. RELEVANT | 22755.json | Score: 0.4288
+44. RELEVANT | 15103.json | Score: 0.4272
+45. RELEVANT | 17676.json | Score: 0.4248
+46.          | 7576.json | Score: 0.4240
+47.          | 23993.json | Score: 0.4231
+48.          | 29942.json | Score: 0.4215
+49.          | 6955.json | Score: 0.4181
+50.          | 17314.json | Score: 0.4172
+Average precision for this query: 0.11334783320765901
+Mean response time: 0.0037875016530354816
+Throughput: 264.02628740730796
