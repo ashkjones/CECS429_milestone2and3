@@ -7,3 +7,4 @@ Milestone 3 required docs:
 
 [first Cranfield results](query_results.txt)
 
+[Index Elimination Explanation](Index_Elimination.pdf)
